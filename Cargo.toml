@@ -1,5 +1,5 @@
 [package]
-name = "namers"
+name = "hostnamer-rs"
 version = "0.1.0"
 edition = "2021"
 
