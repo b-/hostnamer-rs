@@ -23,14 +23,9 @@ fn generate_hostname(wordcount: usize) -> String {
     for _ in 0..wordcount{
         words.push(String::from(random_word::gen(Lang::En)));        
     };
-    let mut hostname = String::from(words.pop().unwrap());
-    loop {
-        match words.pop() {
-           Some(word) => {
-                hostname = hostname + "-" + &word;
-           }
-           _ => break
-        }
+    let mut hostname = words.pop().unwrap();
+    while let Some(word) = words.pop() {
+            hostname = hostname + "-" + &word;
     }
     hostname
 }
