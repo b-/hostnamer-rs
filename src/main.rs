@@ -1,5 +1,7 @@
+#![feature(addr_parse_ascii)]
 use random_word::Lang;
 use std::net;
+use serde_json::json;
 
 struct HostPair {
     name: String,
@@ -8,13 +10,20 @@ struct HostPair {
 
 impl Default for HostPair {
     fn default() -> Self {
-        HostPair{name: generate_hostname(2), ip: [0,0,0,0].into()}
+        HostPair{
+            name: generate_hostname(2),
+            ip: [0,0,0,0].into(),
+        }
     }
 }
 
 fn main() {
     let host = HostPair{ip: [192,168,12,34].into(), ..Default::default()};
-    println!("name: {}, ip: {}", host.name, host.ip);
+    let host_json = json!({
+        "name": host.name,
+        "ip": host.ip,
+    });
+    println!("{}", host_json.to_string());
 }
 
 fn generate_hostname(wordcount: usize) -> String {
